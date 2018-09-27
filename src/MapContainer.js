@@ -20,14 +20,12 @@ export class MapContainer extends React.Component {
       {/* Map component rendered with jsx */}
       <Map
       google={this.props.google}
-      style={style}
-          initialCenter={{
-            lat: 47.6753,
-            lng: 9.3185
-          }}
-          zoom={15}
-          onClick={this.onMapClicked}
-        />
+      style={{width: '100%', height: '100%', position: 'relative'}}
+      className={'map'}
+      zoom={15}
+      initialCenter={{ lat: 47.6753, lng: 9.3185 }}
+      onClick={this.onMapClicked}
+     />
       </div>
     )
   }
