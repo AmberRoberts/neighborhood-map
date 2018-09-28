@@ -4,7 +4,7 @@ import './App.css';
 // import MapContainer from './MapContainer'
 // import Map from './Map'
 // import { GoogleApiWrapper } from 'google-maps-react'
-// Reference https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/
+// Reference https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/ https://stackoverflow.com/questions/19436555/foursquare-venue-explore-selecting-multiple-sections
 // https://stackoverflow.com/questions/45429484/how-to-implement-google-maps-js-api-in-react-without-an-external-library
 // or this tutorial https://github.com/fullstackreact/google-maps-react
 // reference here https://stackoverflow.com/questions/48493960/using-google-map-in-react-component
@@ -31,8 +31,8 @@ class App extends Component {
     const parameters = {
       client_id: "VEJCMS5O4IFLMWFHQNX5XNJL5TEGZSQ5LZGMJYJZ23CFBGKV",
       client_secret: "Q1CYMWTSVHPNBDMNBQAZ1EXTCROV31TMGQZ3MTGZWVUPPCSX",
-      query: "",
-      near: "Hagnau am Bodensee",
+      categoryID: "4deefb944765f83613cdba6e, 4bf58dd8d48988d181941735, 4d4b7105d754a06374d81259, 4bf58dd8d48988d1fa931735, 4bf58dd8d48988d117941735, 4d4b7105d754a06377d81259, 56aa371be4b08b9a8d5734c3, 4f4530164b9074f6e4fb00ff, 4bf58dd8d48988d12d951735",
+      ll: "47.6753, 9.3185",
       v: 20180927 // API version - meaning app is prepared for API changes up to this date
     }
 
@@ -49,16 +49,24 @@ class App extends Component {
   initMap = () => {
           let map = new window.google.maps.Map(document.getElementById('map'), {
             center: {lat: 47.6753, lng: 9.3185},
-            zoom: 17
+            zoom: 12
           });
 
+          let infowindow = new window.google.maps.InfoWindow();
+
           this.state.venues.map(venueMarker => {
+            var contentString = `${venueMarker.venue.name}`
             var marker = new window.google.maps.Marker({
               position: {lat: venueMarker.venue.location.lat, lng: venueMarker.venue.location.lng},
               map: map,
+              animation: window.google.maps.Animation.DROP,
               title: venueMarker.venue.name
           })
-        });
+        marker.addListener('click', function() {
+          infowindow.setContent(contentString)
+          infowindow.open(map, marker);
+        })
+      });
         }
 
 
