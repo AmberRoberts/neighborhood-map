@@ -1,11 +1,43 @@
-.App {
+.main {
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; */
   text-align: center;
-  display: flex;
 }
 
-/* Menu via https://github.com/negomi/react-burger-menu */
+App {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; 
+}
 
-/* Position and sizing of burger button */
+/* Page content */
+h1 {
+  font-size: 1em;
+  align-content: center;
+  padding: 5px;
+}
+
+  nav {
+  width: 25%;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+
+#map {
+  height: 100vh;
+  width: 75%;
+  margin: 25%;
+}
+
+.sidebar {
+width: 25%;
+}
+
+
+/* Menu via https://github.com/negomi/react-burger-menu */
+/*
 .bm-burger-button {
     position: fixed;
     background: beige;
@@ -22,64 +54,46 @@
 }
 
 .bm-menu {
-  background: #fdf5e6;
+  background: rgba(255, 255, 255, 0.7);
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
+  height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
 }
 
 .bm-cross {
   background: black;
 }
 
-/* Wrapper for item list */
+.bm-cross-button {
+position: absolute;
+width: 24px;
+height: 24px;
+right: 20px;
+top: 8px;
+}
+
 .bm-item-list {
   color: black;
   padding: 0.8em;
+  height: 100%;
 }
 
-/* Individual item */
 .bm-item {
   display: inline-block;
 }
 
+.bm-item:hover {
+  color: red;
+}
+
 .menu-item {
   color: black;
-  display: flex;
+  display: block;
 }
 
 .bm-item:hover {
   color: green;
 }
-
-/* Page content */
-h1 {
-  font-size: 1em;
-  align-content: center;
-  padding: 5px;
-}
-
-/* nav {
-  display: flex;
-  width: 15%;
-  background: #f6f4f5;
-  text-align: center;
-  position: absolute;
-  text-align: center;
-} */
-
-#map {
-  /* TODO: margin */
-  position: relative;
-  height: 100vh;
-  /* width: 100vw; */
-  /* margin-left: 15%; */
-}
-
-/* .header {
-  background-color: rgba(255, 255, 255, 0.5);
-  height: 2em;
-  width: 100vh;
-  font-size: 1em;
-  text-align: center;
-  z-index: 1;
-} */
+*/

@@ -30,16 +30,9 @@ class Example extends React.Component {
         isOpen={this.state.menuOpen}
         onStateChange={(state) => this.handleStateChange(state)}
       >
-
-      <ol className="venuesList">
-      {this.props.venues.map(venue => (
-        <li key={venue}>
-        {this.props.venueMarker.venue.name}
-        </li>
-      ))}
-      </ol>
-
+      <a className="menu-item" href="/cats"> Cats </a>
       </Menu>
+
     );
   }
 }

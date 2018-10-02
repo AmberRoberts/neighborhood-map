@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import './App.css';
-import Header from './Header'
+import Sidebar from './Sidebar'
 import Menu from './Menu'
+import Map from './Map'
 
 // TODO: add foursquare usage to README
 // TODO: add marker info, make info box?
@@ -20,85 +21,14 @@ import Menu from './Menu'
 
 class App extends Component {
 
-  state = {
-    venues: []
-  }
-
-
-  componentDidMount() {
-    this.getVenues()
-  }
-
-  loadMap = () => {
-    loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyA_f2pEa5Dk54Q0uWavdCQcSkJSZDvLx8g&callback=initMap")
-    window.initMap = this.initMap
-  }
-/* via tutorial on creating a foursquare API call by Elharony Published on YouTube, Aug 17, 2018, as well as via foursquare documentation */
-
-  getVenues = () => {
-    const endpoint = "https://api.foursquare.com/v2/venues/explore?"
-    const parameters = {
-      client_id: "VEJCMS5O4IFLMWFHQNX5XNJL5TEGZSQ5LZGMJYJZ23CFBGKV",
-      client_secret: "Q1CYMWTSVHPNBDMNBQAZ1EXTCROV31TMGQZ3MTGZWVUPPCSX",
-      categoryID: "4deefb944765f83613cdba6e, 4bf58dd8d48988d181941735, 4d4b7105d754a06374d81259, 4bf58dd8d48988d1fa931735, 4bf58dd8d48988d117941735, 4d4b7105d754a06377d81259, 56aa371be4b08b9a8d5734c3, 4f4530164b9074f6e4fb00ff, 4bf58dd8d48988d12d951735",
-      intent: "browse",
-      near: "47.6753, 9.3185",
-      v: 20180927 // API version - meaning app is prepared for API changes up to this date
-    }
-
-    axios.get(endpoint + new URLSearchParams(parameters))
-    .then(response => {
-      this.setState({ venues: response.data.response.groups[0].items }, this.loadMap()) // venues appear in state, map loads
-      console.log(response.data.response.groups[0].items) // creates an array of objects as generated in the above API call
-    })
-    .catch(error => {
-      console.log("Whoops, something went wrong" + error)
-    })
-  }
-
-  initMap = () => {
-          let map = new window.google.maps.Map(document.getElementById('map'), {
-            center: {lat: 47.6753, lng: 9.3185},
-            zoom: 12,
-            mapTypeId: "hybrid",
-          });
-
-          let infowindow = new window.google.maps.InfoWindow();
-
-          this.state.venues.map(venueMarker => {
-            let marker = new window.google.maps.Marker({
-              position: {lat: venueMarker.venue.location.lat, lng: venueMarker.venue.location.lng},
-              map: map,
-              animation: window.google.maps.Animation.DROP,
-              title: venueMarker.venue.name
-          })
-
-          marker.addListener('click', function() {
-            if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-          } else {
-            marker.setAnimation(window.google.maps.Animation.BOUNCE);
-              setTimeout(function(){ marker.setAnimation(null); }, 750);}
-          infowindow.setContent(`<p><strong>${venueMarker.venue.name} </strong></p> <p>is located at <strong>${venueMarker.venue.location.formattedAddress}. </strong></p> <p> It is a ${venueMarker.venue.categories[0].name}.</p>`)
-          infowindow.open(map, marker);
-        })
-      });
-        }
-
-
 
   render() {
     return (
-      <main>
-      { /* <div className="header">
-      <Header />
-      </div> */ }
-      <div>
-      <Menu />
+      <div className="main">
+      { /* <Menu /> */ }
+      <Sidebar />
+      <Map />
       </div>
-      <div id="map">
-      </div>
-      </main>
     );
   }
 }
