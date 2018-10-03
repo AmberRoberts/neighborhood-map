@@ -22,7 +22,7 @@ class Map extends React.Component {
 
   state = {
     venues: [],
-    menu: []
+    sidebar: []
   }
 
 
@@ -49,7 +49,7 @@ class Map extends React.Component {
 
     axios.get(endpoint + new URLSearchParams(parameters))
     .then(response => {
-      this.setState({ venues: response.data.response.groups[0].items }, this.loadMap()) // venues appear in state, map loads
+      this.setState({ venues: response.data.response.groups[0].items, sidebar: response.data.response.groups[0].items }, this.loadMap()) // venues appear in state, map loads
       console.log(response.data.response.groups[0].items) // creates an array of objects as generated in the above API call
     })
     .catch(error => {

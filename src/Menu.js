@@ -44,7 +44,17 @@ populateMenu = () => {
       type="text"
       placeholder="Plan Your Hagnau Getaway!"
       />
-      <VenuesList />
+      <ul className="bm-item-list">
+      <li className="bm-item">
+      Doggies Say Bark
+      </li>
+      {this.props.venues && this.props.venues.map((venue, id) => (
+        <li key={venue.id}
+        className="bm-item">
+        {this.props.venue}
+        </li>
+      ))}
+    </ul>
       </Menu>
 
     );

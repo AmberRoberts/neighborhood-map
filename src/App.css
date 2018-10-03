@@ -72,7 +72,12 @@ top: 8px;
 }
 
 .bm-item {
-  display: inline-block;
+  color: black;
+  font-size: 12pt;
+  margin: 10px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
 }
 
 .menu-item {
