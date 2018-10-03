@@ -27,9 +27,7 @@ class App extends Component {
       <main>
       { /* <Sidebar /> */ }
       <Menu />
-      <div id="map">
       <Map />
-      </div>
       </main>
     );
   }

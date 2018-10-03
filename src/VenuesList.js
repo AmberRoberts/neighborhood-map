@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
-import VenueItem from './VenueItem'
+import Map from './Map'
+
 class VenuesList extends React.Component {
+//
+// state = {
+//   places: []
+// }
+//
+// componentWillMount() {
+//   this.props.venues.map
+//   .then(places => {
+//   this.setState({ places });
+// })
+// }
 
 render () {
   return (
-    <ol className="sidebar">
-    <VenueItem />
-    </ol>
+    <ul>
+    {
+      this.state.places
+      .map(p => <li key={p.id}> {p.name}
+        </li>)}
+  </ul>
   )
 }
 }

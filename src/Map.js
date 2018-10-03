@@ -21,7 +21,8 @@ import Menu from './Menu'
 class Map extends React.Component {
 
   state = {
-    venues: []
+    venues: [],
+    menu: []
   }
 
 
