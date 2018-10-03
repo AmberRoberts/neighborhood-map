@@ -5,9 +5,9 @@ import VenuesList from './VenuesList'
   render() {
 
     return (
-      <div className="nav">
-      <VenuesList />
-      </div>
+      <nav>
+      Cats
+      </nav>
     )
   }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import './App.css';
 import { slide as Menu } from 'react-burger-menu'
+import VenuesList from './VenuesList'
 
 class Example extends React.Component {
 
@@ -30,11 +31,11 @@ class Example extends React.Component {
         isOpen={this.state.menuOpen}
         onStateChange={(state) => this.handleStateChange(state)}
       >
-      <a className="menu-item" href="/cats"> Cats </a>
+      <VenuesList />
       </Menu>
 
     );
   }
 }
 
-export default Menu
+export default Example

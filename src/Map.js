@@ -42,7 +42,7 @@ class Map extends React.Component {
       client_secret: "Q1CYMWTSVHPNBDMNBQAZ1EXTCROV31TMGQZ3MTGZWVUPPCSX",
       categoryID: "4deefb944765f83613cdba6e, 4bf58dd8d48988d181941735, 4d4b7105d754a06374d81259, 4bf58dd8d48988d1fa931735, 4bf58dd8d48988d117941735, 4d4b7105d754a06377d81259, 56aa371be4b08b9a8d5734c3, 4f4530164b9074f6e4fb00ff, 4bf58dd8d48988d12d951735",
       intent: "browse",
-      near: "47.6753, 9.3185",
+      near: "Hagnau am Bodensee",
       v: 20180927 // API version - meaning app is prepared for API changes up to this date
     }
 
@@ -59,7 +59,7 @@ class Map extends React.Component {
   initMap = () => {
           let map = new window.google.maps.Map(document.getElementById('map'), {
             center: {lat: 47.6753, lng: 9.3185},
-            zoom: 12,
+            zoom: 15,
             mapTypeId: "hybrid",
           });
 

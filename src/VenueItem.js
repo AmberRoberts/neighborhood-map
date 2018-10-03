@@ -4,9 +4,10 @@ class VenueItem extends React.Component {
 
 render () {
   return (
-    <li className="venueItem">
+    <li className="bm-item">
     CATS!
     </li>
+
   )
 }
 }

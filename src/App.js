@@ -24,29 +24,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="main">
-      { /* <Menu /> */ }
-      <Sidebar />
+      <main>
+      { /* <Sidebar /> */ }
+      <Menu />
+      <div id="map">
       <Map />
       </div>
+      </main>
     );
   }
-}
-
-
-function loadScript(url) {
-  let index = window.document.getElementsByTagName("script")[0]
-
-  /* create a script tag as required by the API, using VanillaJS to generate this from documentation:
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
-  async defer></script> */
-
-  let script = window.document.createElement("script")
-  script.src = url
-  script.async = true
-  script.defer = true
-  /* Select the first script tag, insert the script before the parent node to keep it at the beginning of the scripts. */
-  index.parentNode.insertBefore(script, index)
 }
 
 export default App;
