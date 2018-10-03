@@ -17,10 +17,14 @@ class VenuesList extends React.Component {
 render () {
   return (
     <ul>
-    {
-      this.state.places
-      .map(p => <li key={p.id}> {p.name}
-        </li>)}
+    <li className="bm-item">
+    Doggies Say Bark
+    </li>
+    {this.props.venues && this.props.venues.map((place, id) => (
+      <li key={place.id}>
+      {this.place.name}
+      </li>
+    ))}
   </ul>
   )
 }
