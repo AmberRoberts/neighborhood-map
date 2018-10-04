@@ -10,18 +10,23 @@ class SearchForm extends React.Component  {
   };
 
   // when text is typed in search field, state updates
-  // updateQuery = query => {
-  //   this.setState({ query });
-  //   console.log(query);
-  //   this.searchResults(query);
-  // };
+  updateQuery = query => {
+    this.setState({ query });
+    console.log(query);
+  };
+
 
 render() {
+
+const { query } = this.state;
+
   return (
 
     <input
     type="text"
     placeholder="Plan Your Hagnau Getaway!"
+    value={query}
+    onChange={e => this.updateQuery(e.target.value)}
     />
 
 )
