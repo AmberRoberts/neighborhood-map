@@ -19,10 +19,10 @@ class SearchForm extends React.Component  {
 render() {
   return (
 
-<input
-type="text"
-placeholder="Plan Your Hagnau Getaway!"
-/>
+    <input
+    type="text"
+    placeholder="Plan Your Hagnau Getaway!"
+    />
 
 )
 }

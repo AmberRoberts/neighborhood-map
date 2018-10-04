@@ -51,7 +51,7 @@ class App extends Component {
     axios.get(endpoint + new URLSearchParams(parameters))
     .then(response => {
       this.setState({ venues: response.data.response.groups[0].items, sidebar: response.data.response.groups[0].items }, this.loadMap()) // venues appear in state, map loads
-      console.log(response.data.response.groups[0].items) // creates an array of objects as generated in the above API call
+      console.log(response.data.response.groups[0].items) // displays list generated in the above API call
     })
     .catch(error => {
       console.log("Whoops, something went wrong" + error)
@@ -91,7 +91,8 @@ class App extends Component {
     return (
       <main>
       { /* <Sidebar /> */ }
-      <Menu venues = {this.state.venues} />
+      <Menu
+      venues={this.state.venues} />
       <div id="map">
       </div>
       </main>
