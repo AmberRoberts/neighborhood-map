@@ -1,38 +1,31 @@
 import React, { Component } from 'react';
 import './App.css';
-import Sidebar from './Sidebar'
 import Menu from './Menu'
-import Map from './Map'
 import axios from 'axios'
 
 // TODO: add foursquare usage to README
-// TODO: add marker info, make info box?
-// TODO: sidebar CSS
-// TODO: add stuff to sidebar
 // TODO: search filter
-// TODO: add wikipedia info on the town, or flickr images when you click on "info"
 // TODO: navigation, add tab index o and on click, on keypress listeners to make it open
-// TODO: service worker https://youtu.be/LvQe7xrUh7I?t=3543
 
 // Reference https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/ https://stackoverflow.com/questions/19436555/foursquare-venue-explore-selecting-multiple-sections
 // https://stackoverflow.com/questions/45429484/how-to-implement-google-maps-js-api-in-react-without-an-external-library
 // or this tutorial https://github.com/fullstackreact/google-maps-react
 // reference here https://stackoverflow.com/questions/48493960/using-google-map-in-react-component
+// reference here https://stackoverflow.com/questions/34573792/javascript-function-to-return-object-returns-object-object
 
 class App extends Component {
 
   state = {
     venues: [],
-    sidebar: []
+    markers: []
   }
-
 
   componentDidMount() {
     this.getVenues()
   }
 
   loadMap = () => {
-    loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyA_f2pEa5Dk54Q0uWavdCQcSkJSZDvLx8g&callback=initMap")
+    loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyA_f2pEa5Dk54Q0uWavdCQcSkJSZDvLx8g&libraries=places&callback=initMap")
     window.initMap = this.initMap
   }
   /* via tutorial on creating a foursquare API call by Elharony Published on YouTube, Aug 17, 2018, as well as via foursquare documentation */
@@ -50,7 +43,7 @@ class App extends Component {
 
     axios.get(endpoint + new URLSearchParams(parameters))
     .then(response => {
-      this.setState({ venues: response.data.response.groups[0].items, sidebar: response.data.response.groups[0].items }, this.loadMap()) // venues appear in state, map loads
+      this.setState({ venues: response.data.response.groups[0].items, isVisible: true, markers: response.data.response.groups[0].items }, this.loadMap()) // venues appear in state, map loads
       console.log(response.data.response.groups[0].items) // displays list generated in the above API call
     })
     .catch(error => {
@@ -65,6 +58,64 @@ class App extends Component {
             mapTypeId: "hybrid",
           });
 
+        let input = document.getElementById('pac-input');
+        let searchBox = new window.google.maps.places.SearchBox(input);
+        map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        let markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          let places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          let bounds = new window.google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            let icon = {
+              url: place.icon,
+              size: new window.google.maps.Size(71, 71),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(17, 34),
+              scaledSize: new window.google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new window.google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+
           let infowindow = new window.google.maps.InfoWindow();
 
           this.state.venues.map(venueMarker => {
@@ -72,8 +123,10 @@ class App extends Component {
               position: {lat: venueMarker.venue.location.lat, lng: venueMarker.venue.location.lng},
               map: map,
               animation: window.google.maps.Animation.DROP,
-              title: venueMarker.venue.name
+              title: venueMarker.venue.name,
+              id: venueMarker.venue.id,
           })
+          markers.push(marker)
 
           marker.addListener('click', function() {
             if (marker.getAnimation() !== null) {
@@ -84,15 +137,27 @@ class App extends Component {
           infowindow.setContent(`<p><strong>${venueMarker.venue.name} </strong></p> <p>is located at <strong>${venueMarker.venue.location.formattedAddress}. </strong></p> <p> It is a ${venueMarker.venue.categories[0].name}.</p>`)
           infowindow.open(map, marker);
         })
+
+        // let showVenue = (venue) => {
+        //     this.setState({ markers: venue })
+        //   }
       });
         }
+
 
   render() {
     return (
       <main>
       { /* <Sidebar /> */ }
       <Menu
-      venues={this.state.venues} />
+      venues={this.state.venues}
+      markers={this.state.markers}
+      marker={this.props.marker}
+      showVenue={this.props.showVenue}
+      isVisible={this.state.isVisible} />
+      <div class="search">
+       <input id="pac-input" class="controls" type="text" placeholder="Search Box" />
+       </div>
       <div id="map">
       </div>
       </main>
