@@ -17,12 +17,25 @@ class App extends Component {
 
   state = {
     venues: [],
-    markers: []
+    markers: [],
   }
 
   componentDidMount() {
     this.getVenues()
   }
+
+  clearMarkers = () => {
+    this.setState({ markers: [] })
+  }
+
+  showVenue = (venue) => {
+    this.clearMarkers() // Clears the markers array, but they're not attached.  Why?
+      console.log(`You clicked ${venue.name} ${venue.id} ${this.props.ListItem}`) // Prints these things, but undefined for ListItem?
+      // TODO: How to get ${venueMarker.venue.id}?
+      // TODO: how to change marker visibility or open infoWindow? infowindow.open(map,marker) where/how? https://github.com/fullstackreact/google-maps-react/issues/108
+      // window.google.maps.event.trigger(marker, animation) ??
+    }
+
 
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyA_f2pEa5Dk54Q0uWavdCQcSkJSZDvLx8g&libraries=places&callback=initMap")
@@ -43,7 +56,7 @@ class App extends Component {
 
     axios.get(endpoint + new URLSearchParams(parameters))
     .then(response => {
-      this.setState({ venues: response.data.response.groups[0].items, isVisible: true, markers: response.data.response.groups[0].items }, this.loadMap()) // venues appear in state, map loads
+      this.setState({ venues: response.data.response.groups[0].items, markers: response.data.response.groups[0].items }, this.loadMap()) // venues appear in state, map loads
       console.log(response.data.response.groups[0].items) // displays list generated in the above API call
     })
     .catch(error => {
@@ -124,7 +137,7 @@ class App extends Component {
               map: map,
               animation: window.google.maps.Animation.DROP,
               title: venueMarker.venue.name,
-              id: venueMarker.venue.id,
+              id: venueMarker.venue.id
           })
           markers.push(marker)
 
@@ -137,10 +150,6 @@ class App extends Component {
           infowindow.setContent(`<p><strong>${venueMarker.venue.name} </strong></p> <p>is located at <strong>${venueMarker.venue.location.formattedAddress}. </strong></p> <p> It is a ${venueMarker.venue.categories[0].name}.</p>`)
           infowindow.open(map, marker);
         })
-
-        // let showVenue = (venue) => {
-        //     this.setState({ markers: venue })
-        //   }
       });
         }
 
@@ -153,8 +162,7 @@ class App extends Component {
       venues={this.state.venues}
       markers={this.state.markers}
       marker={this.props.marker}
-      showVenue={this.props.showVenue}
-      isVisible={this.state.isVisible} />
+      showVenue={this.showVenue} />
       <div class="search">
        <input id="pac-input" class="controls" type="text" placeholder="Search Box" />
        </div>

@@ -34,11 +34,11 @@ class ListItem extends Component {
       })
       console.log(venue) */
 
-      showVenue = (venue) => {
-        //   this.props.setState({ this.state.markers: venue })
-        // } else {
-          console.log(`You clicked ${venue.name} ${venue.id} ${ListItem.key}`)
-      }
+      /* showVenue = (venue) => {
+          this.props.setState({ this.state.markers: venue })
+        } else {
+          console.log(`You clicked ${venue.name} ${venue.id} ${ListItem.id}`)
+      } */
 
 
 
@@ -46,7 +46,7 @@ class ListItem extends Component {
         return (
             <li
             className='bm-item'
-            onClick={() => this.showVenue(this.props.venue, this.props.marker, this.props.ListItem)}>
+            onClick={() => this.props.showVenue(this.props.venue, this.props.marker)}>
                 {this.props.venue.name}
             </li>
         )

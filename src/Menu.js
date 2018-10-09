@@ -42,7 +42,8 @@ state = {
       <ul className='bm-item-list'>
           {this.props.venues &&
               this.props.venues.map((venue, id) => (
-                  <ListItem key={venue.name}
+                  <ListItem key={venue.id}
+                   id={venue.id}
                   {...venue}
                   marker={this.props.marker}
                   venueMarker={this.props.venueMarker}
