@@ -29,16 +29,13 @@ class App extends Component {
   }
 
   showVenue = (venue) => {
-    let marker = this.state.markers;
-    // if (this.venueMarker.venue.id === venue.id) {
-    //   if (marker.getAnimation() !== null) {
-    //   marker.setAnimation(null);
-    // } else {
-    //   marker.setAnimation(window.google.maps.Animation.BOUNCE);
-    //     setTimeout(function(){ marker.setAnimation(null); }, 750);}
-    // }
+    let markers = this.state.markers.filter(m => m.id === venue.id)[0];
     // this.clearMarkers() // Clears the markers array, but they're not attached.  Why?
-      console.log(`You clicked ${venue.name} ${venue.id} ${this.props.ListItem} markers`) // Prints these things, but undefined for ListItem?
+    if (this.state.markers === this.state.venues) {
+      console.log(`You clicked ${venue.name} ${venue.id} ${this.props.ListItem}`) // Prints these things, but undefined for ListItem?
+    } else {
+      console.log(`nope ${this} ${this.state.venues[0]}`) // Why does this print [object Object]
+    }
       // TODO: How to get ${venueMarker.venue.id}?
       // TODO: how to change marker visibility or open infoWindow? infowindow.open(map,marker) where/how? https://github.com/fullstackreact/google-maps-react/issues/108
       // window.google.maps.event.trigger(marker, animation) ??
