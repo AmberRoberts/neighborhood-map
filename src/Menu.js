@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios'
 import './App.css';
 import { slide as Menu } from 'react-burger-menu'
 import ListItem from './ListItem'
@@ -45,11 +44,8 @@ state = {
                 return (
                   <ListItem
                   key={idx}
-                  {...venue}
-                  marker={this.props.marker}
-                  venueMarker={this.props.venueMarker}
+                  venue={venue}
                   showVenue={this.props.showVenue}
-                  marker={this.state.marker}
                    /> )
               })}
       </ul>

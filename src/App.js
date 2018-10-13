@@ -18,6 +18,8 @@ class App extends Component {
   state = {
     venues: [],
     markers: [],
+    map: [],
+    activeMarker: []
   }
 
   componentDidMount() {
@@ -29,21 +31,26 @@ class App extends Component {
   }
 
   showVenue = (venue) => {
-    let markers = this.state.markers.filter(m => m.id === venue.id)[0];
-    // this.clearMarkers() // Clears the markers array, but they're not attached.  Why?
-    if (this.state.markers === this.state.venues) {
-      console.log(`You clicked ${venue.name} ${venue.id} ${this.props.ListItem}`) // Prints these things, but undefined for ListItem?
-    } else {
-      console.log(`nope ${this} ${this.state.venues[0]}`) // Why does this print [object Object]
+      console.log(this.state.markers);
+      console.log(venue);
+      this.state.markers.map(marker => {
+        if (marker.venue.id === venue.venue.id) {
+          this.setState({
+            activeMarker: marker
+          });
+          const activeMarker = this.state.activeMarker;
+          this.openWindow(activeMarker); // Tester method
+        }
+      });
     }
-      // TODO: How to get ${venueMarker.venue.id}?
-      // TODO: how to change marker visibility or open infoWindow? infowindow.open(map,marker) where/how? https://github.com/fullstackreact/google-maps-react/issues/108
-      // window.google.maps.event.trigger(marker, animation) ??
+    openWindow = (marker) => {
+      const map = this.state.map;
+      this.state.infoWindow.open(map, marker);
     }
 
 
   loadMap = () => {
-    loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyA_f2pEa5Dk54Q0uWavdCQcSkJSZDvLx8g&libraries=places&callback=initMap")
+    loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyA_f2pEa5Dk54Q0uWavdCQcSkJSZDvLx8g&callback=initMap")
     window.initMap = this.initMap
   }
   /* via tutorial on creating a foursquare API call by Elharony Published on YouTube, Aug 17, 2018, as well as via foursquare documentation */
@@ -76,63 +83,6 @@ class App extends Component {
             mapTypeId: "hybrid",
           });
 
-        let input = document.getElementById('pac-input');
-        let searchBox = new window.google.maps.places.SearchBox(input);
-        map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
-        });
-
-        let markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-          let places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-            return;
-          }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          let bounds = new window.google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            let icon = {
-              url: place.icon,
-              size: new window.google.maps.Size(71, 71),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(17, 34),
-              scaledSize: new window.google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new window.google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
-
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-        });
 
           let infowindow = new window.google.maps.InfoWindow();
 
@@ -144,7 +94,7 @@ class App extends Component {
               title: venueMarker.venue.name,
               id: venueMarker.venue.id
           })
-          markers.push(marker)
+          // markers.push(marker)
 
           marker.addListener('click', function() {
             if (marker.getAnimation() !== null) {
@@ -165,12 +115,7 @@ class App extends Component {
       { /* <Sidebar /> */ }
       <Menu
       venues={this.state.venues}
-      markers={this.state.markers}
-      marker={this.props.marker}
       showVenue={this.showVenue} />
-      <div className="search">
-       <input id="pac-input" className="controls" type="text" placeholder="Search Box" />
-       </div>
       <div id="map">
       </div>
       </main>
