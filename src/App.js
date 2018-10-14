@@ -35,17 +35,12 @@ class App extends Component {
       console.log(venue);
       this.state.markers.map(marker => {
         if (marker.venue.id === venue.venue.id) {
-          this.setState({
-            activeMarker: marker
-          });
+          this.setState({ activeMarker: marker }); // adds clicked ListItem to activeMarker state. Changes upon click, can be viewed in react dev tools but doesn't show in console.log.
           const activeMarker = this.state.activeMarker;
-          this.openWindow(activeMarker); // Tester method
-        }
+          window.google.maps.event.trigger(activeMarker, "click") // What do I need to target here instead of marker?
+          console.log(this.state.activeMarker, marker.venue.id)
+        } // gets through to this console.log, but infowindow/markers don't do anything.
       });
-    }
-    openWindow = (marker) => {
-      const map = this.state.map;
-      this.state.infoWindow.open(map, marker);
     }
 
 
@@ -94,7 +89,6 @@ class App extends Component {
               title: venueMarker.venue.name,
               id: venueMarker.venue.id
           })
-          // markers.push(marker)
 
           marker.addListener('click', function() {
             if (marker.getAnimation() !== null) {

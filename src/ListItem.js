@@ -6,7 +6,6 @@ const ListItem = ({venue, showVenue}) => {
     <li
       className='bm-item'
       onClick={() => {
-        console.log(this.props.venue, this.props.venueMarker);
         showVenue(venue);
       }}
     >
