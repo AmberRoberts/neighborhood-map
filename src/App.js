@@ -32,7 +32,7 @@ class App extends Component {
 
   showVenue = (venue) => {
       this.state.markers.map(marker => {
-        if (marker.venue.id === venue.venue.id) {
+        if (marker.id === venue.venue.id) {
           this.setState({ activeMarker: marker }); // adds clicked ListItem to activeMarker state. Changes upon click, can be viewed in react dev tools but doesn't show in console.log.
           // const activeMarker = this.state.activeMarker;
           // this.marker.setAnimation(window.google.maps.Animation.BOUNCE) // TypeError: Cannot read property 'setAnimation' of undefined
@@ -101,7 +101,7 @@ class App extends Component {
           infowindow.setContent(infoContent)
           infowindow.open(map, marker);
         })
-        this.setState({ markers: [...this.state.markers, venueMarker] }) // via https://medium.com/@thejasonfile/using-the-spread-operator-in-react-setstate-c8a14fc51be1
+        this.setState({ markers: [...this.state.markers, marker] }) // via https://medium.com/@thejasonfile/using-the-spread-operator-in-react-setstate-c8a14fc51be1
       });
         }
 
