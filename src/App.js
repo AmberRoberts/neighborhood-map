@@ -31,16 +31,15 @@ class App extends Component {
   }
 
   showVenue = (venue) => {
-      console.log(this.state.markers);
-      console.log(venue);
       this.state.markers.map(marker => {
         if (marker.venue.id === venue.venue.id) {
           this.setState({ activeMarker: marker }); // adds clicked ListItem to activeMarker state. Changes upon click, can be viewed in react dev tools but doesn't show in console.log.
-          const activeMarker = this.state.activeMarker;
-          window.google.maps.event.trigger(activeMarker, "click") // What do I need to target here instead of marker?
-          console.log(this.state.activeMarker, marker.venue.id)
+          // const activeMarker = this.state.activeMarker;
+          // this.marker.setAnimation(window.google.maps.Animation.BOUNCE) // TypeError: Cannot read property 'setAnimation' of undefined
+          window.google.maps.event.trigger(marker, "click") // What do I need to target here instead of marker?
         } // gets through to this console.log, but infowindow/markers don't do anything.
       });
+      console.log(this.state.activeMarker) // Logs previous state.activeMarker, not current -- but the activeMarker state changes onclick.
     }
 
 
@@ -63,7 +62,7 @@ class App extends Component {
 
     axios.get(endpoint + new URLSearchParams(parameters))
     .then(response => {
-      this.setState({ venues: response.data.response.groups[0].items, markers: response.data.response.groups[0].items }, this.loadMap()) // venues appear in state, map loads
+      this.setState({ venues: response.data.response.groups[0].items }), this.loadMap() // venues appear in state, map loads
       console.log(response.data.response.groups[0].items) // displays list generated in the above API call
     })
     .catch(error => {
@@ -89,16 +88,20 @@ class App extends Component {
               title: venueMarker.venue.name,
               id: venueMarker.venue.id
           })
+          // let allMarkers = []
+          // allMarkers.push(venueMarker)
 
-          marker.addListener('click', function() {
+          marker.addListener('click', function(toggleBounce) {
             if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
           } else {
             marker.setAnimation(window.google.maps.Animation.BOUNCE);
               setTimeout(function(){ marker.setAnimation(null); }, 750);}
-          infowindow.setContent(`<p><strong>${venueMarker.venue.name} </strong></p> <p>is located at <strong>${venueMarker.venue.location.formattedAddress}. </strong></p> <p> It is a ${venueMarker.venue.categories[0].name}.</p>`)
+              let infoContent = `<p><strong>${venueMarker.venue.name} </strong></p> <p>is located at <strong>${venueMarker.venue.location.formattedAddress}. </strong></p> <p> It is a ${venueMarker.venue.categories[0].name}.</p>`
+          infowindow.setContent(infoContent)
           infowindow.open(map, marker);
         })
+        this.setState({ markers: [...this.state.markers, venueMarker] }) // via https://medium.com/@thejasonfile/using-the-spread-operator-in-react-setstate-c8a14fc51be1
       });
         }
 
