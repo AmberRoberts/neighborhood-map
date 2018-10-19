@@ -13,6 +13,11 @@ class SearchForm extends React.Component  {
   updateQuery = query => {
     this.setState({ query });
     console.log(query);
+    this.props.markers.forEach(marker => { // TODO: error here?
+// write t/f statement to check:
+marker.name.toLowerCase().includes(query.toLowerCase()) == true ? marker.setVisible(true) : marker.setVisible(false);
+console.log(marker)
+})
   };
 
 
@@ -22,13 +27,38 @@ const { query } = this.state;
 
   return (
 
+    <div className="searchField">
+
+    <div className="search-input-wrapper">
+
     <input
     type="text"
-    placeholder="Plan Your Hagnau Getaway!"
+    placeholder="Plan a Hagnau Getaway!"
     value={query}
     onChange={e => this.updateQuery(e.target.value)}
     />
+    </div>
 
+    <div className="search-results">
+      <ol className="locations">
+
+      {this.state.searchResults.map(searchResults => {
+        this.props.markers.map(marker => (
+          marker.id === searchResults.id ? window.google.maps.event.trigger(marker, "click") : console.log("wompwomp")
+        ));
+        console.log({searchResults})
+
+        return (
+          <li key={searchResults.id}>
+          <this.props.ListItem
+          marker={searchResults}
+          />
+          </li>
+        )
+      })}
+      </ol>
+      </div>
+</div>
 )
 }
 }

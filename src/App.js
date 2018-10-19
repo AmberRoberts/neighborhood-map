@@ -6,7 +6,7 @@ import axios from 'axios'
 // TODO: add foursquare usage to README
 // TODO: search filter
 // TODO: navigation, add tab index o and on click, on keypress listeners to make it open
-
+  // TODO: add to README https://reactjs.org/docs/forms.html
 // Reference https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/ https://stackoverflow.com/questions/19436555/foursquare-venue-explore-selecting-multiple-sections
 // https://stackoverflow.com/questions/45429484/how-to-implement-google-maps-js-api-in-react-without-an-external-library
 // or this tutorial https://github.com/fullstackreact/google-maps-react
@@ -18,7 +18,6 @@ class App extends Component {
   state = {
     venues: [],
     markers: [],
-    map: [],
     activeMarker: []
   }
 
@@ -33,13 +32,11 @@ class App extends Component {
   showVenue = (venue) => {
       this.state.markers.map(marker => {
         if (marker.id === venue.venue.id) {
-          this.setState({ activeMarker: marker }); // adds clicked ListItem to activeMarker state. Changes upon click, can be viewed in react dev tools but doesn't show in console.log.
-          // const activeMarker = this.state.activeMarker;
-          // this.marker.setAnimation(window.google.maps.Animation.BOUNCE) // TypeError: Cannot read property 'setAnimation' of undefined
-          window.google.maps.event.trigger(marker, "click") // What do I need to target here instead of marker?
-        } // gets through to this console.log, but infowindow/markers don't do anything.
+          this.setState({ activeMarker: marker }); // adds clicked ListItem to activeMarker state.
+          window.google.maps.event.trigger(marker, "click")
+        }
       });
-      console.log(this.state.activeMarker) // Logs previous state.activeMarker, not current -- but the activeMarker state changes onclick.
+      console.log(this.state.activeMarker)
     }
 
 
@@ -88,8 +85,6 @@ class App extends Component {
               title: venueMarker.venue.name,
               id: venueMarker.venue.id
           })
-          // let allMarkers = []
-          // allMarkers.push(venueMarker)
 
           marker.addListener('click', function(toggleBounce) {
             if (marker.getAnimation() !== null) {
@@ -112,7 +107,8 @@ class App extends Component {
       { /* <Sidebar /> */ }
       <Menu
       venues={this.state.venues}
-      showVenue={this.showVenue} />
+      showVenue={this.showVenue}
+      markers={this.state.markers} />
       <div id="map">
       </div>
       </main>
