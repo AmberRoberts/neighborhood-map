@@ -18,7 +18,8 @@ class App extends Component {
   state = {
     venues: [],
     markers: [],
-    activeMarker: []
+    activeMarker: [],
+    query: ""
   }
 
   componentDidMount() {
@@ -38,6 +39,13 @@ class App extends Component {
       });
       console.log(this.state.activeMarker)
     }
+
+    // when text is typed in search field, state updates
+    updateQuery = query => {
+      query = query.toLowerCase();
+      this.setState({query}, ()=> {
+        });
+    };
 
 
   loadMap = () => {
@@ -86,6 +94,9 @@ class App extends Component {
               id: venueMarker.venue.id
           })
 
+          //check if the title of the current marker contains any part of the query string
+          marker.visible=marker.title.toLowerCase().includes(this.state.query);
+
           marker.addListener('click', function(toggleBounce) {
             if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
@@ -106,9 +117,10 @@ class App extends Component {
       <main>
       { /* <Sidebar /> */ }
       <Menu
-      venues={this.state.venues}
+      venues={this.state.venues.filter(venue => venue.venue.name.toLowerCase().includes(this.state.query.toLowerCase()))}
       showVenue={this.showVenue}
-      markers={this.state.markers} />
+      updateQuery={this.updateQuery}
+      />
       <div id="map">
       </div>
       </main>

@@ -12,7 +12,6 @@ class Example extends React.Component {
       menuOpen: true,
       menu: [],
       itemsList: [],
-      query: "",
       searchResults: []
     }
   }
@@ -28,15 +27,8 @@ class Example extends React.Component {
     event.preventDefault();
   }
 
-// when text is typed in search field, state updates
-updateQuery = query => {
-  this.setState({ query });
-  console.log(query);
-  this.filterVenues(query);
-};
-
 filterVenues = query => {
-  {this.markers && this.markers.forEach(marker => {
+  {this.props.markers && this.props.markers.forEach(marker => {
 // t/f statement to check query against markers:
 marker.name.toLowerCase().includes(query.toLowerCase()) == true ? marker.setVisible(true) : marker.setVisible(false)
 console.log(marker) // Why won't this log anything?
@@ -75,7 +67,7 @@ console.log(marker) // Why won't this log anything?
       type="text"
       placeholder="Plan a Hagnau Getaway!"
       // value={query}
-      onChange={e => this.updateQuery(e.target.value)}
+      onChange={e => this.props.updateQuery(e.target.value)}
       />
       </div>
 
