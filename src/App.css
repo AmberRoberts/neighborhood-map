@@ -133,6 +133,10 @@ top: 8px;
   flex-wrap: nowrap;
 }
 
+li:focus {
+  color: blue;
+}
+
 .menu-item {
   color: black;
   display: block;

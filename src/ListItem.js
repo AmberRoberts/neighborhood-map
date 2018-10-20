@@ -4,8 +4,13 @@ import React from 'react';
 const ListItem = ({venue, showVenue}) => {
   return (
     <li
+      tabindex="0"
+      aria-label= {venue.venue.name}
       className='bm-item'
       onClick={() => {
+        showVenue(venue);
+      }}
+      onKeyPress={() => {
         showVenue(venue);
       }}
     >

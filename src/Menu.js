@@ -27,13 +27,13 @@ class Example extends React.Component {
     event.preventDefault();
   }
 
-filterVenues = query => {
-  {this.props.markers && this.props.markers.forEach(marker => {
-// t/f statement to check query against markers:
-marker.name.toLowerCase().includes(query.toLowerCase()) == true ? marker.setVisible(true) : marker.setVisible(false)
-console.log(marker) // Why won't this log anything?
-})}
-};
+// filterVenues = query => {
+//   {this.props.markers && this.props.markers.forEach(marker => {
+// // t/f statement to check query against markers:
+// marker.name.toLowerCase().includes(query.toLowerCase()) == true ? marker.setVisible(true) : marker.setVisible(false)
+// console.log(marker) // Why won't this log anything?
+// })}
+// };
 
 
 // Other option w/ venues instead of markers
@@ -66,12 +66,13 @@ console.log(marker) // Why won't this log anything?
       <input
       type="text"
       placeholder="Plan a Hagnau Getaway!"
+      aria-role="search"
       // value={query}
       onChange={e => this.props.updateQuery(e.target.value)}
       />
       </div>
 
-      <ul className='bm-item-list'>
+      <ul className='bm-item-list' aria-label="locations">
           {this.props.venues &&
               this.props.venues.map((venue, idx) => {
                 return (

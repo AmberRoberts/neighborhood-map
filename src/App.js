@@ -44,6 +44,7 @@ class App extends Component {
     updateQuery = query => {
       query = query.toLowerCase();
       this.setState({query}, ()=> {
+        this.loadMap()
         });
     };
 
@@ -61,7 +62,7 @@ class App extends Component {
       client_secret: "Q1CYMWTSVHPNBDMNBQAZ1EXTCROV31TMGQZ3MTGZWVUPPCSX",
       categoryID: "4deefb944765f83613cdba6e, 4bf58dd8d48988d181941735, 4d4b7105d754a06374d81259, 4bf58dd8d48988d1fa931735, 4bf58dd8d48988d117941735, 4d4b7105d754a06377d81259, 56aa371be4b08b9a8d5734c3, 4f4530164b9074f6e4fb00ff, 4bf58dd8d48988d12d951735",
       intent: "browse",
-      near: "Hagnau am Bodensee",
+      near: "Hagnau am Bodensee, Germany",
       v: 20180927 // API version - meaning app is prepared for API changes up to this date
     }
 
@@ -95,7 +96,7 @@ class App extends Component {
           })
 
           //check if the title of the current marker contains any part of the query string
-          marker.visible=marker.title.toLowerCase().includes(this.state.query);
+          marker.visible = marker.title.toLowerCase().includes(this.state.query);
 
           marker.addListener('click', function(toggleBounce) {
             if (marker.getAnimation() !== null) {
@@ -103,7 +104,7 @@ class App extends Component {
           } else {
             marker.setAnimation(window.google.maps.Animation.BOUNCE);
               setTimeout(function(){ marker.setAnimation(null); }, 750);}
-              let infoContent = `<p><strong>${venueMarker.venue.name} </strong></p> <p>is located at <strong>${venueMarker.venue.location.formattedAddress}. </strong></p> <p> It is a ${venueMarker.venue.categories[0].name}.</p>`
+              let infoContent = `<div className="infowindow" tabindex="0" aria-role="alert"><p><strong>${venueMarker.venue.name} </strong></p> <p>is located at <strong>${venueMarker.venue.location.formattedAddress}. </strong></p> <p> It is a ${venueMarker.venue.categories[0].name}.</p>`
           infowindow.setContent(infoContent)
           infowindow.open(map, marker);
         })
@@ -118,10 +119,12 @@ class App extends Component {
       { /* <Sidebar /> */ }
       <Menu
       venues={this.state.venues.filter(venue => venue.venue.name.toLowerCase().includes(this.state.query.toLowerCase()))}
+      markers={this.state.markers.filter(marker => marker.title.toLowerCase().includes(this.state.query.toLowerCase()
+      ))}
       showVenue={this.showVenue}
       updateQuery={this.updateQuery}
       />
-      <div id="map">
+      <div id="map" role="application" aria-label="Map">
       </div>
       </main>
     );
