@@ -1,4 +1,4 @@
-#Neighborhood Map
+# Neighborhood Map
 
 ## Table of Contents
 
@@ -6,7 +6,7 @@
 - [How to Run](#how-to-run)
 - [Service Worker](#service-worker)
 - [Dependencies](#dependencies)
-- [Future Goals](#future-goals)
+- [References & Acknowledgements](#references-and-acknowledgements)
 
 ## Goals
 
@@ -52,11 +52,11 @@ Referenced materials include:
 * Some serious code-explaining from Carlos F [FEND].
 * [Spread operator research](https://medium.com/@thejasonfile/using-the-spread-operator-in-react-setstate-c8a14fc51be1)
 * StackOverflow, specifically:
- * [How to implement Google Maps w/o an external library](https://stackoverflow.com/questions/45429484/how-to-implement-google-maps-js-api-in-react-without-an-external-library)
- * [Using Google map in react component](https://stackoverflow.com/questions/48493960/using-google-map-in-react-component)
- * [returns object-object](https://stackoverflow.com/questions/34573792/javascript-function-to-return-object-returns-object-object)
+  * [How to implement Google Maps w/o an external library](https://stackoverflow.com/questions/45429484/how-to-implement-google-maps-js-api-in-react-without-an-external-library)
+  * [Using Google map in react component](https://stackoverflow.com/questions/48493960/using-google-map-in-react-component)
+  * Research on [returns object-object](https://stackoverflow.com/questions/34573792/javascript-function-to-return-object-returns-object-object) issue
 * Mozilla's developer documentation, specifically:
- * [Global Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
- * [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)
+  * [Global Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+  * [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)
 * Elharony's [Google Maps with React](https://www.youtube.com/channel/UCcWSbBe_s-T_gZRnqFbtyIA) tutorial
 * Forrest Walker's [Neighborhood Map Walkthrough](https://www.youtube.com/playlist?list=PL4rQq4MQP1crXuPtruu_eijgOUUXhcUCP)
