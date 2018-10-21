@@ -5,7 +5,7 @@ const ListItem = ({venue, showVenue}) => {
   return (
     <li
       tabindex="0"
-      aria-label= {venue.venue.name}
+      aria-labelledby= {venue.venue.name}
       className='bm-item'
       onClick={() => {
         showVenue(venue);

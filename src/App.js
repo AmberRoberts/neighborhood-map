@@ -3,15 +3,6 @@ import './App.css';
 import Menu from './Menu'
 import axios from 'axios'
 
-// TODO: add foursquare usage to README
-// TODO: search filter
-// TODO: navigation, add tab index o and on click, on keypress listeners to make it open
-  // TODO: add to README https://reactjs.org/docs/forms.html
-// Reference https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/ https://stackoverflow.com/questions/19436555/foursquare-venue-explore-selecting-multiple-sections
-// https://stackoverflow.com/questions/45429484/how-to-implement-google-maps-js-api-in-react-without-an-external-library
-// or this tutorial https://github.com/fullstackreact/google-maps-react
-// reference here https://stackoverflow.com/questions/48493960/using-google-map-in-react-component
-// reference here https://stackoverflow.com/questions/34573792/javascript-function-to-return-object-returns-object-object
 
 class App extends Component {
 
@@ -44,7 +35,7 @@ class App extends Component {
     updateQuery = query => {
       query = query.toLowerCase();
       this.setState({query}, ()=> {
-        this.loadMap()
+        this.initMap() // map is refreshed to update the markers
         });
     };
 
@@ -104,7 +95,8 @@ class App extends Component {
           } else {
             marker.setAnimation(window.google.maps.Animation.BOUNCE);
               setTimeout(function(){ marker.setAnimation(null); }, 750);}
-              let infoContent = `<div className="infowindow" tabindex="0" aria-role="alert"><p><strong>${venueMarker.venue.name} </strong></p> <p>is located at <strong>${venueMarker.venue.location.formattedAddress}. </strong></p> <p> It is a ${venueMarker.venue.categories[0].name}.</p>`
+              let infoContent = `<div className="infowindow" aria-role="alert"><p><strong>${venueMarker.venue.name} </strong></p> <p>is located at <strong>${venueMarker.venue.location.formattedAddress}. </strong></p> <p> It is a ${venueMarker.venue.categories[0].name}.</p>
+              <p className="credit">Information via Foursquare API </p>`
           infowindow.setContent(infoContent)
           infowindow.open(map, marker);
         })

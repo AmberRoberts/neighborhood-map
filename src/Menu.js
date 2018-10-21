@@ -54,6 +54,10 @@ class Example extends React.Component {
 
     return (
       <Menu
+        width={ 280 }
+        id={ "sidebar" }
+        role="complementary"
+        aria-labelledby="locations sidebar"
         noOverlay
         isOpen={this.state.menuOpen}
         onStateChange={(state) => this.handleStateChange(state)}
@@ -65,14 +69,15 @@ class Example extends React.Component {
 
       <input
       type="text"
-      placeholder="Plan a Hagnau Getaway!"
+      placeholder="Filter locations by name"
       aria-role="search"
-      // value={query}
       onChange={e => this.props.updateQuery(e.target.value)}
       />
+      <p className="results" tabindex="0">Your search contains {this.props.venues.length} venues.</p>
+
       </div>
 
-      <ul className='bm-item-list' aria-label="locations">
+      <ol className='bm-item-list' aria-labelledby="locations">
           {this.props.venues &&
               this.props.venues.map((venue, idx) => {
                 return (
@@ -82,7 +87,7 @@ class Example extends React.Component {
                   showVenue={this.props.showVenue}
                    /> )
               })}
-      </ul>
+      </ol>
       </Menu>
 
     );
