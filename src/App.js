@@ -86,7 +86,7 @@ class App extends Component {
               id: venueMarker.venue.id
           })
 
-          //check if the title of the current marker contains any part of the query string
+          //check if the title of the current marker contains any part of the query string, display only the markers that match
           marker.visible = marker.title.toLowerCase().includes(this.state.query);
 
           marker.addListener('click', function(toggleBounce) {
@@ -100,7 +100,7 @@ class App extends Component {
           infowindow.setContent(infoContent)
           infowindow.open(map, marker);
         })
-        this.setState({ markers: [...this.state.markers, marker] }) // via https://medium.com/@thejasonfile/using-the-spread-operator-in-react-setstate-c8a14fc51be1
+        this.setState({ markers: [...this.state.markers, marker] })
       });
         }
 
