@@ -3,7 +3,7 @@ import React from 'react';
 const ListItem = ({venue, showVenue}) => {
   return (
     <li
-      tabindex="0"
+      tabIndex="0"
       aria-labelledby= {venue.venue.name}
       className='bm-item'
       onClick={() => {

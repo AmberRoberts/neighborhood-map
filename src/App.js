@@ -63,7 +63,7 @@ class App extends Component {
       console.log(response.data.response.groups[0].items) // displays list generated in the above API call
     })
     .catch(error => {
-      console.log("Whoops, something went wrong" + error)
+      alert("Whoops, something went wrong" + error)
     })
   }
 
@@ -123,8 +123,6 @@ class App extends Component {
   }
 }
 
-export default App;
-
 function loadScript(url) {
   let index = window.document.getElementsByTagName("script")[0]
 
@@ -136,6 +134,12 @@ function loadScript(url) {
   script.src = url
   script.async = true
   script.defer = true
+  script.onerror = function() {
+    alert("Error loading Google Maps, please refresh and try again.");
+};
+
   /* Select the first script tag, insert the script before the parent node to keep it at the beginning of the scripts. */
   index.parentNode.insertBefore(script, index)
 }
+
+export default App;

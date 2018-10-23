@@ -60,3 +60,4 @@ Referenced materials include:
   * [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)
 * Elharony's [Google Maps with React](https://www.youtube.com/channel/UCcWSbBe_s-T_gZRnqFbtyIA) tutorial
 * Forrest Walker's [Neighborhood Map Walkthrough](https://www.youtube.com/playlist?list=PL4rQq4MQP1crXuPtruu_eijgOUUXhcUCP)
+* Suggested reading from initial reviewer on [error handling in Google Maps](https://discussions.udacity.com/t/handling-google-maps-in-async-and-fallback/34282)

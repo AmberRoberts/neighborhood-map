@@ -48,10 +48,10 @@ class Example extends React.Component {
       <input
       type="text"
       placeholder="Filter locations by name"
-      aria-role="search"
+      role="search"
       onChange={e => this.props.updateQuery(e.target.value)}
       />
-      <p className="results" tabindex="0">Your search contains {this.props.venues.length} venues.</p>
+      <p className="results" tabIndex="0">Your search contains {this.props.venues.length} venues.</p>
 
       </div>
 
